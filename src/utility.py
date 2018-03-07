@@ -5,8 +5,8 @@ from selenium.webdriver.support import expected_conditions as EC
 import requests
 import json
 from access import access_token
+from lead import Lead
 
-fb_base_url = 'https://www.facebook.com/'
 graph_call = 'https://graph.facebook.com/{}?access_token=' + access_token + '&fields=emails,booking_agent,contact_address,phone,category'
 
 def get_fb_slug(fb_profile_link):
@@ -30,7 +30,7 @@ def get_related_pages(fb_profile_link):
         driver.quit()
     return related_pages
 
-def get_contact_details(fb_slug):
+def get_leads(fb_slug):
     graph_url = graph_call.format(fb_slug)
     r = requests.get(graph_url)
     data = json.loads(r.text)
@@ -59,13 +59,14 @@ def get_contact_details(fb_slug):
     except Exception as e:
         category = None        
         print(e)
-    contact_details = {
+    lead = Lead(fb_slug = fb_slug, emails=emails, booking_agent=booking_agent, contact_address=contact_address, phone=phone, category=category)
+    '''contact_details = {
         'emails': emails,
         'booking_agent': booking_agent,
         'contact_address': contact_address,
         'phone': phone,
         'category': category,
-    }
-    return contact_details
+    }'''
+    return lead
     
     
