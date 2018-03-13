@@ -11,6 +11,8 @@ Facebook Script to generate Sales Leads for GigSync
 
 4. cd src/
 
+5. Run the script `main.py` using Python3.
+
 
 ## Options
 
