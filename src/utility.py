@@ -6,7 +6,6 @@ import requests
 import json
 import time
 from access import access_token
-from lead import Lead
 
 graph_call = 'https://graph.facebook.com/{}?access_token=' + access_token + '&fields=name,emails,booking_agent,contact_address,phone,category'
 
@@ -17,7 +16,9 @@ def get_fb_slug(fb_profile_link):
 
 def get_related_pages(fb_profile_link):
     related_pages = []
-    driver = webdriver.Chrome()
+    options = webdriver.ChromeOptions()
+    options.add_argument('--headless')
+    driver = webdriver.Chrome(chrome_options=options)
     driver.get(fb_profile_link)
     try:
         WebDriverWait(driver, 10).until(
