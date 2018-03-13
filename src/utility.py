@@ -8,6 +8,18 @@ import time
 from access import access_token
 
 graph_call = 'https://graph.facebook.com/{}?access_token=' + access_token + '&fields=name,emails,booking_agent,contact_address,phone,category'
+'''accepted_page_types = {
+    "Artist",
+    "Band",
+    "Musician/Band",
+    "Musician",
+    "Orchestra",
+    "DJ",
+    "Music Production Studio",
+    "Restaurant",
+    "Bar",
+    "Hotel"
+}'''
 
 def get_fb_slug(fb_profile_link):
     fb_profile_list = fb_profile_link.split('/')

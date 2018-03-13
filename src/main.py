@@ -13,15 +13,16 @@ def explore(conn, fb_profile_link):
     print('Exploring lead: {}'.format(fb_profile_link))
     if db_io.lead_exists(conn, fb_profile_link):
         print('Lead already exists in DB')
-        return None
-    db_io.add_to_unexplored_leads(conn, [(fb_profile_link,)])
-    lead = utility.get_leads(fb_profile_link)
-    lead['fb_profile_link'] = fb_profile_link
-    db_io.add_leads_to_db(conn, fb_profile_link=fb_profile_link, name=lead['name'], emails=lead['emails'], booking_agent=lead['booking_agent'], contact_address=lead['contact_address'], phone=lead['phone'], category=lead['category'])
-    related_pages = utility.get_related_pages(fb_profile_link)
-    related_pages = utility.clean_urls(related_pages)
-    #print(related_pages)
-    db_io.add_to_unexplored_leads(conn, related_pages)
+        lead = None
+    else:
+        db_io.add_to_unexplored_leads(conn, [(fb_profile_link,)])
+        lead = utility.get_leads(fb_profile_link)
+        lead['fb_profile_link'] = fb_profile_link
+        db_io.add_leads_to_db(conn, fb_profile_link=fb_profile_link, name=lead['name'], emails=lead['emails'], booking_agent=lead['booking_agent'], contact_address=lead['contact_address'], phone=lead['phone'], category=lead['category'])
+        related_pages = utility.get_related_pages(fb_profile_link)
+        related_pages = utility.clean_urls(related_pages)
+        #print(related_pages)
+        db_io.add_to_unexplored_leads(conn, related_pages)
     db_io.delete_from_unexplored(conn, [(fb_profile_link,)])
     #WRITE RESULT TO CSV FILE
     #file_io.add_lead_to_csv_file(lead_file, lead)
@@ -95,13 +96,16 @@ if __name__ == '__main__':
         #db_io.add_to_unexplored_leads(conn, [(start_url,)])
         while(n):
             unexplored_lead = db_io.get_unexplored_lead(conn)
+            #print(unexplored_lead)
             if not unexplored_lead:
                 print('No new leads')
                 break
             fb_profile_link = unexplored_lead[0]
             lead = explore(conn, fb_profile_link)
             #print(lead)
-            if lead is not None:
+            if lead is None:
+                db_io.delete_from_unexplored(conn, [(fb_profile_link,)])
+            else:
                 leads.append(lead)
             n -= 1
         #SAVE UNEXPLORED DUMP DATA BACK TO DB
@@ -124,7 +128,7 @@ if __name__ == '__main__':
             leads.append(lead)
             n -= 1
     #SAVE CSV FILE
-    #print(leads)
+    print(leads)
     if leads:
         lead_file_name = 'lead' + date_string + '.csv'
         lead_file = open(lead_file_name, 'w+')
