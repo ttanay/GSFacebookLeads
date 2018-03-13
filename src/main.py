@@ -103,7 +103,8 @@ if __name__ == '__main__':
             leads.append(lead)
             n -= 1
     #SAVE CSV FILE
-    file_io.add_lead_to_csv_file(lead_file, leads)
+    if leads:
+        file_io.add_lead_to_csv_file(lead_file, leads)
     #close connections
     lead_file.close()
     conn.close()

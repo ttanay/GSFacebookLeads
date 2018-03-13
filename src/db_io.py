@@ -1,6 +1,5 @@
 import sqlite3
 import time
-from lead import Lead
 
 def open_connection(db_name='gs_leads.db'):
     conn = sqlite3.connect(db_name)
