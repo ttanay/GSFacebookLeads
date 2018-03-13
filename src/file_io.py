@@ -1,6 +1,7 @@
 import csv
+import datetime
 
-field_names = ['name', 'fb_profile_link', 'emails', 'booking_agent', 'contact_address', 'phone', 'category']
+field_names = ['name', 'category', 'contact_address', 'phone', 'booking_agent', 'emails', 'fb_profile_link']
 
 def add_lead_to_file(lead_file,lead):
     #print(lead['category'])
@@ -13,5 +14,24 @@ def add_lead_to_csv_file(csv_file, leads):
     writer = csv.DictWriter(csv_file, fieldnames=field_names)
     writer.writeheader()
     for lead in leads:
-        writer.writerow(lead)
+        if lead:
+            writer.writerow(lead)
     return
+
+'''def dump_all_leads(leads):
+    dt = datetime.datetime.now()
+    date_string = dt.strftime("%d_%b_%yT%H_%M")
+    file_name = 'lead_dump' + date_string + '.csv'
+    with open(file_name, 'a+') as csv_file:
+        add_lead_to_csv_file(csv_file, leads)
+    return'''
+
+'''def dump_all_unexplored_leads(uneplored_leads):
+    dt = datetime.datetime.now()
+    date_string = dt.strftime("%d_%b_%yT%H_%M")
+    file_name = 'unexplored_lead_dump' + date_string + '.csv'
+    with open(file_name, 'a+') as csv_file:
+        writer = csv.writer(csv_file)
+        writer.writerows(uneplored_leads)
+    return'''
+    

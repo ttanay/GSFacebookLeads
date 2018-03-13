@@ -21,11 +21,11 @@ def create_table_leads(conn):
         conn.execute(sql_statement)
     return 
 
-def lead_exists(conn, fb_prifle_link):
+def lead_exists(conn, fb_profile_link):
     sql_statement = '''SELECT count(*) FROM leads WHERE fb_profile_link = ?;'''
     cur = conn.cursor()
-    cur.execute(sql_statement, (fb_prifle_link,))
-    if cur.fetchall == [(0,)]:
+    cur.execute(sql_statement, (fb_profile_link,))
+    if cur.fetchall() == [(0,)]:
         return False
     else:
         return True
@@ -47,6 +47,14 @@ def add_leads_to_db(conn, fb_profile_link, name, emails, booking_agent, contact_
             conn.execute(sql_statement, data)
     return
 
+def get_all_leads(conn):
+    sql_statement = '''SELECT * FROM leads;'''
+    cur = conn.cursor()
+    cur.execute(sql_statement)
+    result = cur.fetchall()
+    cur.close()
+    return result
+
 def create_table_unexplored(conn):
     sql_statement = '''CREATE TABLE IF NOT EXISTS unexplored(
                             fb_profile_link TEXT NOT NULL,
@@ -60,13 +68,17 @@ def get_all_unexplored_leads(conn):
     sql_statement = '''SELECT fb_profile_link FROM unexplored ORDER BY timestamp;'''
     cur = conn.cursor()
     cur.execute(sql_statement)
-    return cur.fetchall()
+    result = cur.fetchall()
+    cur.close()
+    return result
 
 def get_unexplored_lead(conn):
     sql_statement = '''SELECT fb_profile_link FROM unexplored ORDER BY timestamp LIMIT 1;'''
     cur = conn.cursor()
     cur.execute(sql_statement)
-    return cur.fetchone()
+    result = cur.fetchone()
+    cur.close()
+    return result
 
 def add_to_unexplored_leads(conn, list_of_fb_profile_link):
     for fb_profile_link in list_of_fb_profile_link:

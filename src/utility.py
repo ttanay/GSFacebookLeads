@@ -29,6 +29,8 @@ def get_related_pages(fb_profile_link):
             related_pages.append(a.get_property('href'))
             #print(get_fb_slug(a.get_property('href')))
        # print(element.text)
+    except Exception:
+        pass
     finally:
         driver.quit()
     return related_pages
