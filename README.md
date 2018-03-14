@@ -17,7 +17,7 @@ Facebook Script to generate Sales Leads for GigSync
 ## Usage
 1. Right click on GSFacebookLeads.
 2. Click on New Terminal on Folder.
-3. Paste "fb_script" and press Enter.
+3. Paste "fbscript" and press Enter.
 
 ## Options
 
