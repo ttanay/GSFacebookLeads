@@ -3,16 +3,21 @@ Facebook Script to generate Sales Leads for GigSync
 
 ## Setup
 
-1. Clone repository `git clone https://github.com/ttanay/GSFacebookLeads.git`
+1. Clone repository `git clone https://github.com/ttanay/GSFacebookLeads.git` and press Enter.
 
-2. Install sqlite3 (if not installed)
+2. Install sqlite3 and python3 (if not installed)
 
-3. pip3 install -r requirements.txt
+3. In terminal type `python3 -m venv src/env` and press Enter.
 
-4. cd src/
+4. In terminal type `pip3 install -r requirements.txt` and press Enter.
 
-5. Run the script `main.py` using Python3.
+5. In terminal type `bash setup.sh` and press Enter.
 
+
+## Usage
+1. Right click on GSFacebookLeads.
+2. Click on New Terminal on Folder.
+3. Paste "fb_script" and press Enter.
 
 ## Options
 

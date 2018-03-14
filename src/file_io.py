@@ -11,7 +11,8 @@ def add_lead_to_file(lead_file,lead):
     return
 
 def add_lead_to_csv_file(csv_file, leads):
-    print(leads)
+    #print(leads)
+    print('Saving to CSV file')
     writer = csv.DictWriter(csv_file, fieldnames=field_names)
     writer.writeheader()
     for lead in leads:

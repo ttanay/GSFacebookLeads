@@ -1,13 +1,8 @@
-1) Right click on gigsync_fb_script
-2) Click on New Terminal on Folder
-3) Paste "source env/bin/activate"
-4) Paste "python3 main.py" and add options
+1) Right click on GSFacebookLeads.
+2) Click on New Terminal on Folder.
+3) Paste "fb_script" and press Enter.
 
 
 Options
-1) -s: start_url
-    It defines the start url to get leads from.
-2) -n: number_of_leads
-    It defines the number of leads to be gathered.
-3) -d: delete_unexplored_leads_from_db
+1) -d: delete_unexplored_leads_from_db
     It deletes ALL unexplored leads from DB.

@@ -38,13 +38,13 @@ if __name__ == '__main__':
     #lead_file = open(lead_file_name, 'w+')
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("-s", "--start_url", help="Enter the URL to get leads from", required=False, nargs=1)
-    parser.add_argument("-n", "--number_of_leads", help="Enter no of leads", required=False, nargs=1)
+    '''parser.add_argument("-s", "--start_url", help="Enter the URL to get leads from", required=False, nargs=1)
+    parser.add_argument("-n", "--number_of_leads", help="Enter no of leads", required=False, nargs=1)'''
     parser.add_argument("-d", help="Delete unexplored leads from DB", action="store_true", required=False)
-    #parser.add_argument("--dump_leads", help="Dump all leads in DB to csv file", action="store_true", required=False)
-    #parser.add_argument("--dump_unexplored_leads", help="Dump all unexxplored leads to csv file", action="store_true", required=False)
+    '''parser.add_argument("--dump_leads", help="Dump all leads in DB to csv file", action="store_true", required=False)
+    #parser.add_argument("--dump_unexplored_leads", help="Dump all unexxplored leads to csv file", action="store_true", required=False)'''
     args = parser.parse_args()
-    #print(args)
+    '''print(args)
     #print(type(args.start_url[0]))
     #print(type(args.number_of_leads[0]))
     #print(args.start_url[0])
@@ -68,7 +68,7 @@ if __name__ == '__main__':
             n = 10
     except ValueError:
         print('ERROR: -n flag should be a number(int)')
-        sys.exit()
+        sys.exit()'''
     
     '''if args.dump_leads:
         leads = db_io.get_all_leads(conn)
@@ -79,11 +79,30 @@ if __name__ == '__main__':
         unexplored_leads = db_io.get_all_unexplored_leads(conn)
         file_io.dump_all_unexplored_leads(unexplored_leads)'''
 
+    start_url = None
+    n = 10
+
     if args.d:
         db_io.delete_all_from_unexplored(conn)
         print('Deleted unexplored leads from DB')
         sys.exit()
 
+    print('Do you want to enter start URL?(y/n)')
+    response = input()
+    if response == 'y' or response == 'yes':
+        print('Enter start_url:(Valid URL)')
+        start_url = input()
+    
+    print('No of leads is 10 by default.Do you want to change it?(y/n)')
+    response = input()
+    if response == 'y' or response == 'yes':
+        print('Enter no of leads:(Integer)')
+        try:
+            n = int(input())
+        except Exception:
+            print('Not an integer')
+            sys.exit()
+            
     if start_url is not None:
         print('start_url is not None')
         data_dump = db_io.get_all_unexplored_leads(conn)
@@ -128,10 +147,10 @@ if __name__ == '__main__':
             leads.append(lead)
             n -= 1
     #SAVE CSV FILE
-    print(leads)
+    #print(leads)
     if leads:
-        lead_file_name = 'lead' + date_string + '.csv'
-        lead_file = open(lead_file_name, 'w+')
+        lead_file_name = './lead' + date_string + '.csv'
+        lead_file = open(lead_file_name, 'a+')
         file_io.add_lead_to_csv_file(lead_file, leads)
         #close connections
         lead_file.close()
