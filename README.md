@@ -13,6 +13,8 @@ Facebook Script to generate Sales Leads for GigSync
 
 5. In terminal type `bash setup.sh` and press Enter.
 
+6. Restart Terminal.
+
 
 ## Usage
 1. Right click on GSFacebookLeads.
