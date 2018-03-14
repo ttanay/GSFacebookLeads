@@ -1,3 +1,5 @@
+#!/bin/bash
+
 python3 -m venv src/env
 source src/env/bin/activate
 pip3 install -r requirements.txt
